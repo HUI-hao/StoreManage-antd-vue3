@@ -1,6 +1,8 @@
 <template>
   <div class="login-container">
-    <h2 class="login-title">商城管理系统</h2>
+    <p></p>
+    <img src="../assets/icon.png" height="120" width="360"/>
+    <p></p>
     <a-form ref="form" :model="form" class="login-form">
       <h2 class="title">用户登录 LOGIN</h2>
       <a-form-item>
@@ -82,6 +84,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
+  text-align: center;
 }
 
 /* Log */

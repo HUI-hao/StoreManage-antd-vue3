@@ -31,20 +31,11 @@ export default {
     handleSubmit(e) {
       if (this.form.username && this.form.password) {
         if (this.form.password == this.form.retry) {
-          // if(this.form.username == this.$route.query.username)
-          // {
-          //   this.update = {
-          //     id: this.$route.query.id,
-          //     password: this.$md5(this.form.password),
-          //   }
-          // }
-          // else {
           this.update = {
             id: this.$route.query.id,
             username: this.form.username,
             password: this.$md5(this.form.password),
           }
-          // }
           this.$axios.post(this.$baseurl + '/admin/update', this.update)
               .then(response => {//一定要lamda方式
                 let obj = response.data;

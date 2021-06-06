@@ -21,6 +21,8 @@
     </a-sub-menu>
     <a-sub-menu key="sub3">
       <span slot="title"><a-icon type="setting"/><span>其他</span></span>
+      <a-menu-item key="20">客户端展示&swagger文档</a-menu-item>
+      <a-menu-item key="21">GitHub地址</a-menu-item>
       <a-menu-item key="0">退出登录</a-menu-item>
     </a-sub-menu>
   </a-menu>
@@ -65,6 +67,12 @@ export default {
           break
         case "15":
           this.setPage('AddUser')
+          break
+        case "20":
+          this.setPage('Swagger')
+          break
+        case "21":
+          this.setPage('Outside')
           break
       }
     }
