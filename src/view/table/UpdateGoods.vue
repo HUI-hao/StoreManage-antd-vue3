@@ -39,7 +39,7 @@ export default {
         price: retudata.price,
         volume: retudata.volume,
         direct: false,
-        have: false,
+        have: true,
       },
     };
   },
