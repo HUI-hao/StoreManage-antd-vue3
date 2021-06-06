@@ -29,38 +29,44 @@ export default {
   },
   methods: {
     handleSubmit(e) {
-      if(this.form.password == this.form.retry) {
-        // if(this.form.username == this.$route.query.username)
-        // {
-        //   this.update = {
-        //     id: this.$route.query.id,
-        //     password: this.$md5(this.form.password),
-        //   }
-        // }
-        // else {
+      if (this.form.username && this.form.password) {
+        if (this.form.password == this.form.retry) {
+          // if(this.form.username == this.$route.query.username)
+          // {
+          //   this.update = {
+          //     id: this.$route.query.id,
+          //     password: this.$md5(this.form.password),
+          //   }
+          // }
+          // else {
           this.update = {
             id: this.$route.query.id,
             username: this.form.username,
             password: this.$md5(this.form.password),
           }
-        // }
-        this.$axios.post(this.$baseurl + '/admin/update', this.update)
-            .then(response => {//一定要lamda方式
-              let obj = response.data;
-              switch (obj.data) {
-                case 0:
-                  this.$message.info('更新成功');
-                  break
-                case 1:
-                  this.$message.info('用户名重复');
-                  break
-                default:
-                  this.$message.info('更新失败');
-              }
-            })
-            .catch(error => { // 请求失败处理, 一定要lamda方式，不然无法调用到onLoginFail函数。
-              this.$message.info(error);
-            });
+          // }
+          this.$axios.post(this.$baseurl + '/admin/update', this.update)
+              .then(response => {//一定要lamda方式
+                let obj = response.data;
+                switch (obj.data) {
+                  case 0:
+                    this.$message.info('更新成功');
+                    break
+                  case 1:
+                    this.$message.info('用户名重复');
+                    break
+                  default:
+                    this.$message.info('更新失败');
+                }
+              })
+              .catch(error => { // 请求失败处理, 一定要lamda方式，不然无法调用到onLoginFail函数。
+                this.$message.info(error);
+              });
+        } else {
+          this.$message.info('两次输入密码不一致');
+        }
+      } else {
+        this.$message.info('输入不能为空');
       }
     },
   },

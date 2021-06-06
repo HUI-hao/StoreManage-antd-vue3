@@ -21,41 +21,42 @@
 export default {
   data() {
     return {
-      form: {
-
-      },
+      form: {},
       register: {},
     };
   },
   methods: {
     handleSubmit() {
-      if(this.form.retry == this.form.password) {
-        this.register = {
-          "username": this.form.username,
-          "password": this.$md5(this.form.password),
+      if (this.form.password && this.form.username) {
+        if (this.form.retry == this.form.password) {
+          this.register = {
+            "username": this.form.username,
+            "password": this.$md5(this.form.password),
+          }
+          this.$axios.post(this.$baseurl + '/admin/register', this.register)
+              .then(response => {//一定要lamda方式
+                let obj = response.data;
+                switch (obj.data) {
+                  case 0:
+                    this.$message.info('添加成功');
+                    break
+                  case 1:
+                    this.$message.info('添加失败，用户名重复');
+                    break
+                  default:
+                    this.$message.info('添加失败');
+                    break
+                }
+              })
+              .catch(error => { // 请求失败处理, 一定要lamda方式，不然无法调用到onLoginFail函数。
+                this.$message.info(error);
+              });
+        } else {
+          this.$message.info('两次输入密码不一致');
+          return;
         }
-        this.$axios.post(this.$baseurl + '/admin/register', this.register)
-            .then(response => {//一定要lamda方式
-              let obj = response.data;
-              switch (obj.data){
-                case 0:
-                  this.$message.info('添加成功');
-                  break
-                case 1:
-                  this.$message.info('添加失败，用户名重复');
-                  break
-                default:
-                  this.$message.info('添加失败');
-                  break
-              }
-            })
-            .catch(error => { // 请求失败处理, 一定要lamda方式，不然无法调用到onLoginFail函数。
-              this.$message.info(error);
-            });
-      }
-      else {
-        this.$message.info('  两次输入密码不一致');
-        return;
+      } else {
+        this.$message.info('输入不能为空');
       }
     },
   },
