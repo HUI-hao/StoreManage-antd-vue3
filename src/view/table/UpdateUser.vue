@@ -1,7 +1,7 @@
 <template>
   <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }" @submit="handleSubmit">
     <a-form-item label="正在修改的用户：">
-      <a-input class="inputBox" v-model="form.password" placeholder="请输入密码"></a-input>
+      <a-input class="inputBox" v-model="form.username" :disabled="true"></a-input>
     </a-form-item>
     <a-form-item label="新密码">
       <a-input class="inputBox" v-model="form.password" placeholder="请输入密码"></a-input>
@@ -21,7 +21,9 @@
 export default {
   data() {
     return {
-      form: {},
+      form: {
+        username:this.$route.query.username,
+      },
       update: {},
     };
   },
